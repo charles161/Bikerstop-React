@@ -1,0 +1,32 @@
+html {
+  background-color: #ffffff;
+  background-image: url("http://placekitten.com/g/600/300");
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+  position: fixed;
+  bottom: 0%;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.bg-dwyl-teal {
+  background-color: #4db6ac;
+}
