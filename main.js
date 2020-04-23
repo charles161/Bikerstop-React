@@ -2,6 +2,7 @@ const buttonStyle = "unselectable f6 no-underline shadow-hover dib v-mid white m
 const MQTT_URL = "wss://charlescool.xyz:8120";
 const textStyle = "fw1 f5 white-80 mt3 mb4";
 
+const { Link, Route, BrowserRouter: Router, Switch } = ReactRouterDOM;
 function Container(props) {
   return React.createElement(
     "div",
@@ -21,7 +22,7 @@ function ItemsContainer(props) {
     )
   );
 }
-class App extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
 
@@ -76,35 +77,6 @@ class App extends React.Component {
       )
     );
 
-    this.header = () => React.createElement(
-      "header",
-      { "class": "bg-black-20 w-100 ph3 pv3 pv4-ns ph4-m ph5-l " },
-      React.createElement(
-        "nav",
-        { "class": "f6 fw6 ttu tracked" },
-        React.createElement(
-          "a",
-          { "class": "link dim white dib mr3", href: "#", title: "Home" },
-          "Home"
-        ),
-        React.createElement(
-          "a",
-          { "class": "link dim white dib mr3", href: "#", title: "About" },
-          "About"
-        ),
-        React.createElement(
-          "a",
-          { "class": "link dim white dib mr3", href: "#", title: "Store" },
-          "Store"
-        ),
-        React.createElement(
-          "a",
-          { "class": "link dim white dib", href: "#", title: "Contact" },
-          "Contact"
-        )
-      )
-    );
-
     this.chunker = (items, size) => {
       let chunks = [[]];
       let tempChunk = [];
@@ -131,7 +103,6 @@ class App extends React.Component {
     return React.createElement(
       "div",
       { id: "content", className: "sans-serif fixed h-100 w-100 center flex flex-column" },
-      this.header(),
       React.createElement(
         Container,
         null,
@@ -143,6 +114,77 @@ class App extends React.Component {
       )
     );
   }
+}
+
+const header = () => React.createElement(
+  "header",
+  { "class": "bg-black-20 w-100 ph3 pv3 pv4-ns ph4-m ph5-l " },
+  React.createElement(
+    "nav",
+    { "class": "f6 fw6 ttu tracked" },
+    React.createElement(
+      Link,
+      { "class": "link dim white dib mr3", to: "/" },
+      "Home"
+    ),
+    React.createElement(
+      Link,
+      { "class": "link dim white dib mr3", to: "/about" },
+      "About"
+    ),
+    React.createElement(
+      Link,
+      { "class": "link dim white dib mr3", to: "/users" },
+      "Users"
+    )
+  )
+);
+
+function About() {
+  return React.createElement(
+    "h2",
+    { className: "white" },
+    "About"
+  );
+}
+
+function Users() {
+  return React.createElement(
+    "h2",
+    { className: "white" },
+    "Users"
+  );
+}
+
+function App() {
+  return React.createElement(
+    Router,
+    null,
+    header(),
+    React.createElement(
+      "div",
+      null,
+      React.createElement(
+        Switch,
+        null,
+        React.createElement(
+          Route,
+          { path: "/about" },
+          React.createElement(About, null)
+        ),
+        React.createElement(
+          Route,
+          { path: "/users" },
+          React.createElement(Users, null)
+        ),
+        React.createElement(
+          Route,
+          { path: "/" },
+          React.createElement(Home, null)
+        )
+      )
+    )
+  );
 }
 
 let domContainer = document.querySelector("#react_div");

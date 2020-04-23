@@ -2,6 +2,7 @@ const buttonStyle = "unselectable f6 no-underline shadow-hover dib v-mid white m
 const MQTT_URL = "wss://charlescool.xyz:8120";
 const textStyle = "fw1 f5 white-80 mt3 mb4";
 
+const { Link, Route, BrowserRouter: Router, Switch } = ReactRouterDOM;
 function Container(props) {
   return <div class="overflow-y-scroll">{props.children}</div>;
 }
@@ -13,7 +14,7 @@ function ItemsContainer(props) {
     </div>
   );
 }
-class App extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,25 +55,6 @@ class App extends React.Component {
     </article>
   );
 
-  header = () => (
-    <header class="bg-black-20 w-100 ph3 pv3 pv4-ns ph4-m ph5-l ">
-      <nav class="f6 fw6 ttu tracked">
-        <a class="link dim white dib mr3" href="#" title="Home">
-          Home
-        </a>
-        <a class="link dim white dib mr3" href="#" title="About">
-          About
-        </a>
-        <a class="link dim white dib mr3" href="#" title="Store">
-          Store
-        </a>
-        <a class="link dim white dib" href="#" title="Contact">
-          Contact
-        </a>
-      </nav>
-    </header>
-  );
-
   chunker = (items, size) => {
     let chunks = [[]];
     let tempChunk = [];
@@ -91,7 +73,6 @@ class App extends React.Component {
   render() {
     return (
       <div id="content" className="sans-serif fixed h-100 w-100 center flex flex-column">
-        {this.header()}
         <Container>
           {this.chunker(
             [
@@ -126,6 +107,51 @@ class App extends React.Component {
       </div>
     );
   }
+}
+
+const header = () => (
+  <header class="bg-black-20 w-100 ph3 pv3 pv4-ns ph4-m ph5-l ">
+    <nav class="f6 fw6 ttu tracked">
+      <Link class="link dim white dib mr3" to="/">
+        Home
+      </Link>
+      <Link class="link dim white dib mr3" to="/about">
+        About
+      </Link>
+      <Link class="link dim white dib mr3" to="/users">
+        Users
+      </Link>
+    </nav>
+  </header>
+);
+
+function About() {
+  return <h2 className="white">About</h2>;
+}
+
+function Users() {
+  return <h2 className="white">Users</h2>;
+}
+
+function App() {
+  return (
+    <Router>
+      {header()}
+      <div>
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
 }
 
 let domContainer = document.querySelector("#react_div");
