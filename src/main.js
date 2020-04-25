@@ -1,4 +1,4 @@
-const buttonStyle = "unselectable bw0 br2 bg-dwyl-teal pa2 white fw1 tc ttu tracked w-50 center ma3 hover";
+const buttonStyle = "unselectable pointer grow bw0 br2 bg-dwyl-teal pa2 white fw1 tc ttu tracked w-50 center ma3 hover";
 
 const { Link, Route, BrowserRouter: Router, Switch } = ReactRouterDOM;
 
@@ -177,6 +177,9 @@ const header = () => (
       <Link class="link dim white dib mr3" to="/register">
         Register
       </Link>
+      <Link class="link dim white dib mr3" to="/shipping">
+        Shipping
+      </Link>
     </nav>
   </header>
 );
@@ -329,6 +332,102 @@ class Login extends React.Component {
   }
 }
 
+class ShippingInfo extends React.Component {
+  state = {
+    flatAndStreet: "",
+    city: "",
+    pincode: "",
+    province: "",
+    country: "",
+    error: ""
+  };
+
+  render() {
+    return (
+      <PageContainer>
+        <Card>
+          <h1 className="black center ma3">Shipping Info</h1>
+          <div>
+            <div>
+              <label class="black db fw6 lh-copy f6" for="flatAndStreet">
+                Flat and Street Info
+              </label>
+              <input
+                class="pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="text"
+                name="flatAndStreet"
+                id="flatAndStreet"
+                value={this.state.flatAndStreet}
+                onChange={event => {
+                  this.setState({ flatAndStreet: event.target.value, error: "" });
+                }}
+              />
+
+              <label class="black db fw6 lh-copy f6" for="city">
+                City
+              </label>
+              <input
+                class="b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="text"
+                name="city"
+                id="city"
+                value={this.state.city}
+                onChange={event => {
+                  this.setState({ city: event.target.value, error: "" });
+                }}
+              />
+              <label class="black db fw6 lh-copy f6" for="province">
+                State
+              </label>
+              <input
+                class="b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="text"
+                name="province"
+                id="province"
+                value={this.state.province}
+                onChange={event => {
+                  this.setState({ province: event.target.value, error: "" });
+                }}
+              />
+              <label class="black db fw6 lh-copy f6" for="pincode">
+                Pincode
+              </label>
+              <input
+                class="b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="number"
+                name="pincode"
+                id="pincode"
+                value={this.state.pincode}
+                onChange={event => {
+                  this.setState({ pincode: event.target.value, error: "" });
+                }}
+              />
+
+              <label class="black db fw6 lh-copy f6" for="country">
+                Country
+              </label>
+              <input
+                class="b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="text"
+                name="country"
+                id="country"
+                value={this.state.country}
+                onChange={event => {
+                  this.setState({ country: event.target.value, error: "" });
+                }}
+              />
+            </div>
+            <div class="red ma2">{this.state.error}</div>
+            <div className={buttonStyle} onClick={() => {}}>
+              Save
+            </div>
+          </div>
+        </Card>
+      </PageContainer>
+    );
+  }
+}
+
 function App() {
   return (
     <Router>
@@ -340,6 +439,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/shipping">
+            <ShippingInfo />
           </Route>
           <Route path="/">
             <Home />

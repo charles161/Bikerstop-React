@@ -1,4 +1,4 @@
-const buttonStyle = "unselectable bw0 br2 bg-dwyl-teal pa2 white fw1 tc ttu tracked w-50 center ma3 hover";
+const buttonStyle = "unselectable pointer grow bw0 br2 bg-dwyl-teal pa2 white fw1 tc ttu tracked w-50 center ma3 hover";
 
 const { Link, Route, BrowserRouter: Router, Switch } = ReactRouterDOM;
 
@@ -202,6 +202,11 @@ const header = () => React.createElement(
       Link,
       { "class": "link dim white dib mr3", to: "/register" },
       "Register"
+    ),
+    React.createElement(
+      Link,
+      { "class": "link dim white dib mr3", to: "/shipping" },
+      "Shipping"
     )
   )
 );
@@ -406,6 +411,130 @@ class Login extends React.Component {
   }
 }
 
+class ShippingInfo extends React.Component {
+  constructor(...args) {
+    var _temp3;
+
+    return _temp3 = super(...args), this.state = {
+      flatAndStreet: "",
+      city: "",
+      pincode: "",
+      province: "",
+      country: "",
+      error: ""
+    }, _temp3;
+  }
+
+  render() {
+    return React.createElement(
+      PageContainer,
+      null,
+      React.createElement(
+        Card,
+        null,
+        React.createElement(
+          "h1",
+          { className: "black center ma3" },
+          "Shipping Info"
+        ),
+        React.createElement(
+          "div",
+          null,
+          React.createElement(
+            "div",
+            null,
+            React.createElement(
+              "label",
+              { "class": "black db fw6 lh-copy f6", "for": "flatAndStreet" },
+              "Flat and Street Info"
+            ),
+            React.createElement("input", {
+              "class": "pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2",
+              type: "text",
+              name: "flatAndStreet",
+              id: "flatAndStreet",
+              value: this.state.flatAndStreet,
+              onChange: event => {
+                this.setState({ flatAndStreet: event.target.value, error: "" });
+              }
+            }),
+            React.createElement(
+              "label",
+              { "class": "black db fw6 lh-copy f6", "for": "city" },
+              "City"
+            ),
+            React.createElement("input", {
+              "class": "b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2",
+              type: "text",
+              name: "city",
+              id: "city",
+              value: this.state.city,
+              onChange: event => {
+                this.setState({ city: event.target.value, error: "" });
+              }
+            }),
+            React.createElement(
+              "label",
+              { "class": "black db fw6 lh-copy f6", "for": "province" },
+              "State"
+            ),
+            React.createElement("input", {
+              "class": "b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2",
+              type: "text",
+              name: "province",
+              id: "province",
+              value: this.state.province,
+              onChange: event => {
+                this.setState({ province: event.target.value, error: "" });
+              }
+            }),
+            React.createElement(
+              "label",
+              { "class": "black db fw6 lh-copy f6", "for": "pincode" },
+              "Pincode"
+            ),
+            React.createElement("input", {
+              "class": "b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2",
+              type: "number",
+              name: "pincode",
+              id: "pincode",
+              value: this.state.pincode,
+              onChange: event => {
+                this.setState({ pincode: event.target.value, error: "" });
+              }
+            }),
+            React.createElement(
+              "label",
+              { "class": "black db fw6 lh-copy f6", "for": "country" },
+              "Country"
+            ),
+            React.createElement("input", {
+              "class": "b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2",
+              type: "text",
+              name: "country",
+              id: "country",
+              value: this.state.country,
+              onChange: event => {
+                this.setState({ country: event.target.value, error: "" });
+              }
+            })
+          ),
+          React.createElement(
+            "div",
+            { "class": "red ma2" },
+            this.state.error
+          ),
+          React.createElement(
+            "div",
+            { className: buttonStyle, onClick: () => {} },
+            "Save"
+          )
+        )
+      )
+    );
+  }
+}
+
 function App() {
   return React.createElement(
     Router,
@@ -426,6 +555,11 @@ function App() {
           Route,
           { path: "/login" },
           React.createElement(Login, null)
+        ),
+        React.createElement(
+          Route,
+          { path: "/shipping" },
+          React.createElement(ShippingInfo, null)
         ),
         React.createElement(
           Route,
