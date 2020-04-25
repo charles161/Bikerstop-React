@@ -1,10 +1,87 @@
-const buttonStyle = "unselectable f6 no-underline shadow-hover dib v-mid white ma3 ba b--white-80 ph3 pv2 mb3";
-const MQTT_URL = "wss://charlescool.xyz:8120";
-const textStyle = "fw1 f5 white-80 mt3 mb4";
+const buttonStyle = "unselectable bw0 br2 bg-dwyl-teal pa2 white fw1 tc ttu tracked w-50 center ma3 hover";
 
 const { Link, Route, BrowserRouter: Router, Switch } = ReactRouterDOM;
+
+const itemData = [
+  {
+    name: "Some name",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
+    image: "http://placekitten.com/g/600/300",
+    price: 10.99
+  },
+  {
+    name: "Some name",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
+    image: "http://placekitten.com/g/600/300",
+    price: 10.99
+  },
+  {
+    name: "Some name",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
+    image: "http://placekitten.com/g/600/300",
+    price: 10.99
+  },
+  {
+    name: "Some name",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
+    image: "http://placekitten.com/g/600/300",
+    price: 10.99
+  },
+  {
+    name: "Some name",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
+    image: "http://placekitten.com/g/600/300",
+    price: 10.99
+  },
+  {
+    name: "Some name",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
+    image: "http://placekitten.com/g/600/300",
+    price: 10.99
+  },
+  {
+    name: "Some name",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
+    image: "http://placekitten.com/g/600/300",
+    price: 10.99
+  },
+  {
+    name: "Some name",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
+    image: "http://placekitten.com/g/600/300",
+    price: 10.99
+  },
+  {
+    name: "Some name",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer ",
+    image: "http://placekitten.com/g/600/300",
+    price: 10.99
+  }
+];
+
 function Container(props) {
-  return <div class="overflow-y-scroll">{props.children}</div>;
+  return <div class="overflow-y-scroll h-100 mb5">{props.children}</div>;
+}
+
+function Card(props) {
+  return <div class="mw6 center bg-white br3 pa5 pa4-ns mv5 ba b--black-10 w-100">{props.children}</div>;
+}
+
+function PageContainer(props) {
+  return (
+    <div id="content" className="sans-serif fixed h-100 w-100 center flex flex-column mb5">
+      {props.children}
+    </div>
+  );
 }
 
 function ItemsContainer(props) {
@@ -14,6 +91,7 @@ function ItemsContainer(props) {
     </div>
   );
 }
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -24,36 +102,40 @@ class Home extends React.Component {
     this.client = null;
   }
 
-  button = () => <button class="bw0 br2 bg-dwyl-teal pa2 white fw1 tc ttu tracked">do what you love</button>;
-
-  itemCard = () => (
-    <article
-      onMouseEnter={() => {
-        this.setState({ buyVisible: true });
-      }}
-      onMouseLeave={() => {
-        this.setState({ buyVisible: false });
-      }}
-      className="bg-white dark-gray fl w-100 w-20-ns mh2 mv4 content-center"
-    >
-      <img src="http://placekitten.com/g/600/300" className="db w-100 br2 br--top" alt="Photo of a kitten looking menacing." />
-      <div className="pa2 ph3-ns pb3-ns">
-        <div className="dt w-100 mt1">
-          <div className="dtc">
-            <h1 className="f5 f4-ns mv0">Cat</h1>
-          </div>
-          <div className="dtc tr">
-            <h2 className="f5 mv0">$1,000</h2>
-          </div>
-        </div>
-        <p className="f6 lh-copy measure mt2 mid-gray">
-          If it fits, i sits burrow under covers. Destroy couch leave hair everywhere, and touch water with paw then recoil in
-          horror.
-        </p>
-        {/* {this.state.buyVisible ? this.button() : null} */}
-      </div>
-    </article>
+  button = (name, clickAction) => (
+    <button onClick={clickAction} class="bw0 br2 bg-dwyl-teal pa2 white fw1 tc ttu tracked">
+      {name}
+    </button>
   );
+
+  itemCard = item => {
+    const { name, image, price, description } = item;
+    return (
+      <article
+        onMouseEnter={() => {
+          this.setState({ buyVisible: true });
+        }}
+        onMouseLeave={() => {
+          this.setState({ buyVisible: false });
+        }}
+        className="bg-white dark-gray fl w-100 w-20-ns mh2 mv4 content-center"
+      >
+        <img src={image} className="db w-100 br2 br--top" alt="Photo of a kitten looking menacing." />
+        <div className="pa2 ph3-ns pb3-ns">
+          <div className="dt w-100 mt1">
+            <div className="dtc">
+              <h1 className="f5 f4-ns mv0">{name}</h1>
+            </div>
+            <div className="dtc tr">
+              <h2 className="f5 mv0">{"₹ " + price}</h2>
+            </div>
+          </div>
+          <p className="f6 lh-copy measure mt2 mid-gray">{description}</p>
+          {/* {this.state.buyVisible ? this.button() : null} */}
+        </div>
+      </article>
+    );
+  };
 
   chunker = (items, size) => {
     let chunks = [[]];
@@ -72,39 +154,13 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div id="content" className="sans-serif fixed h-100 w-100 center flex flex-column">
+      <PageContainer>
         <Container>
-          {this.chunker(
-            [
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard(),
-              this.itemCard()
-            ],
-            3
-          ).map(chunk => (
+          {this.chunker(itemData.map(item => this.itemCard(item)), 3).map(chunk => (
             <ItemsContainer>{chunk}</ItemsContainer>
           ))}
         </Container>
-      </div>
+      </PageContainer>
     );
   }
 }
@@ -115,22 +171,162 @@ const header = () => (
       <Link class="link dim white dib mr3" to="/">
         Home
       </Link>
-      <Link class="link dim white dib mr3" to="/about">
-        About
+      <Link class="link dim white dib mr3" to="/login">
+        Login
       </Link>
-      <Link class="link dim white dib mr3" to="/users">
-        Users
+      <Link class="link dim white dib mr3" to="/register">
+        Register
       </Link>
     </nav>
   </header>
 );
 
-function About() {
-  return <h2 className="white">About</h2>;
+class Register extends React.Component {
+  state = {
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    name: "",
+    error: ""
+  };
+
+  render() {
+    return (
+      <PageContainer>
+        <Card>
+          <h1 className="black center ma3">Register</h1>
+          <div>
+            <div>
+              <label class="black db fw6 lh-copy f6" for="name">
+                Name
+              </label>
+              <input
+                class="pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="name"
+                name="name"
+                id="name"
+                value={this.state.name}
+                onChange={event => {
+                  this.setState({ name: event.target.value, error: "" });
+                }}
+              />
+              <label class="black db fw6 lh-copy f6" for="phone">
+                Phone
+              </label>
+              <input
+                class="pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="number"
+                name="phone"
+                id="phone"
+                value={this.state.phone}
+                onChange={event => {
+                  this.setState({ phone: event.target.value, error: "" });
+                }}
+              />
+              <label class="black db fw6 lh-copy f6" for="email-address">
+                Email
+              </label>
+              <input
+                class="pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="email"
+                name="email-address"
+                id="email-address"
+                value={this.state.email}
+                onChange={event => {
+                  this.setState({ email: event.target.value, error: "" });
+                }}
+              />
+
+              <label class="black db fw6 lh-copy f6" for="password">
+                Password:
+              </label>
+              <input
+                class="b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="password"
+                name="password"
+                id="password"
+                value={this.state.password}
+                onChange={event => {
+                  this.setState({ password: event.target.value, error: "" });
+                }}
+              />
+              <label class="black db fw6 lh-copy f6" for="confirmpassword">
+                Confirm Password:
+              </label>
+              <input
+                class="b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="password"
+                name="confirmpassword"
+                id="confirmpassword"
+                value={this.state.confirmPassword}
+                onChange={event => {
+                  this.setState({ confirmPassword: event.target.value, error: "" });
+                }}
+              />
+            </div>
+            <div class="red ma2">{this.state.error}</div>
+            <div className={buttonStyle} onClick={() => {}}>
+              Sign Up
+            </div>
+          </div>
+        </Card>
+      </PageContainer>
+    );
+  }
 }
 
-function Users() {
-  return <h2 className="white">Users</h2>;
+class Login extends React.Component {
+  state = {
+    email: "",
+    password: "",
+    error: ""
+  };
+
+  render() {
+    return (
+      <PageContainer>
+        <Card>
+          <h1 className="black center ma3">Login</h1>
+          <div>
+            <div>
+              <label class="black db fw6 lh-copy f6" for="email-address">
+                Email
+              </label>
+              <input
+                class="pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="email"
+                name="email-address"
+                id="email-address"
+                value={this.state.email}
+                onChange={event => {
+                  this.setState({ email: event.target.value, error: "" });
+                }}
+              />
+
+              <label class="black db fw6 lh-copy f6" for="password">
+                Password:
+              </label>
+              <input
+                class="b pa2 input-reset ba bg-transparent hover-bg-white hover-black w-100 mb2"
+                type="password"
+                name="password"
+                id="password"
+                value={this.state.password}
+                onChange={event => {
+                  this.setState({ password: event.target.value, error: "" });
+                }}
+              />
+            </div>
+            <div class="red ma2">{this.state.error}</div>
+            <div className={buttonStyle} onClick={() => {}}>
+              Sign In
+            </div>
+          </div>
+        </Card>
+      </PageContainer>
+    );
+  }
 }
 
 function App() {
@@ -139,11 +335,11 @@ function App() {
       {header()}
       <div>
         <Switch>
-          <Route path="/about">
-            <About />
+          <Route path="/register">
+            <Register />
           </Route>
-          <Route path="/users">
-            <Users />
+          <Route path="/login">
+            <Login />
           </Route>
           <Route path="/">
             <Home />
